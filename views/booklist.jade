@@ -1,0 +1,40 @@
+extends layout
+
+
+block content
+  script( src='/javascripts/app.js')
+  script( src='/javascripts/controllers/booksController.js')
+
+
+  html(ng-app='libraryApp')
+  style.
+    table, th, td {
+    border: 1px solid black;}
+  div(ng-controller='booksController')
+    form#form_search_book(name="search", method="post", action="/searchbook")
+        br
+        br
+        span Search by ISBN or Book Name
+        span &nbsp;
+        input#input_text(type="text", placeholder="search", ng-model="searchString", name="search_text")
+        br
+        br
+    table#books
+      thead
+        tr.head
+          th Book Name
+          th Book Author
+          th Book Publisher
+          th Book Category
+          th ISBN
+          th # in library
+          th # checked-out
+      tbody
+        tr(ng-repeat="val in book.result | filter:searchString")
+          td {{val.book_name}}
+          td {{val.author}}
+          td {{val.publisher}}
+          td {{val.category}}
+          td {{val.isbn}}
+          td {{val.num}}
+          td {{val.checkout}}

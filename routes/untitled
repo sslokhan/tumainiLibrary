@@ -1,0 +1,12 @@
+
+extends layout
+
+block content
+  h3= title
+  form#form_search_book(name="remove", method="post", action="/removebook")
+    span ISBN
+    span &nbsp;
+    input#input_isbn(type="text", placeholder="isbn", name="isbn")
+    button#remove_book(type="remove") Remove
+    br
+    br

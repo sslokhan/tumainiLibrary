@@ -1,0 +1,19 @@
+
+extends layout
+
+block content
+  h3= title
+  form#form_checkout_book(name="checkout", method="post", action="/checkout")
+    span ISBN of Book to be checked out
+    span &nbsp;
+    input#input_isbn(type="text", placeholder="isbn", name="isbn")
+    br
+    br
+    span Enter name of the person checking out the book
+    span &nbsp;
+    input#input_name(type="text", placeholder="name", name="name")
+    br
+    br
+    button#checkout_book(type="submit") Check-out
+    br
+    br

@@ -1,0 +1,24 @@
+
+extends layout
+
+block content
+  h3 Check Out
+  form#form_checkout_book(name="checkout", method="post", action="/checkout")
+    span ISBN of Book to be checked out
+    span &nbsp;
+    input#input_isbn(type="text", placeholder="isbn", name="isbn")
+    br
+    br
+    button#checkout_book(type="submit") Check-out
+    br
+    br
+  h3 Check In
+  form#form_checkin_book(name="checkin", method="post", action="/checkin")
+    span ISBN of Book to be checked in
+    span &nbsp;
+    input#input_isbn(type="text", placeholder="isbn", name="isbn")
+    br
+    br
+    button#checkout_book(type="submit") Check-in
+    br
+    br

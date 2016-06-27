@@ -1,0 +1,17 @@
+
+extends layout
+
+block content
+  h3= title
+  form#form_remove_book(name="remove", method="post", action="/remove")
+    span ISBN
+    span &nbsp;
+    input#input_isbn(type="text", placeholder="isbn", name="isbn")
+    button#remove_book(type="submit") Remove
+    br
+    br
+
+    .alert.alert-warning
+      strong Warning!
+      |  Before removing a book from the library system, please make sure that all checked-out books are returned to the library.
+
