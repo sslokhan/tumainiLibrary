@@ -1,0 +1,22 @@
+extends layout
+table#books
+  thead
+    tr.head
+      th Book Name
+      th Book Author
+      th Book Publisher
+      th Book Category
+      th ISBN
+      th # in library
+      th # checked-out
+      th Color Coding
+  tbody
+    tr.body
+      td {{val.book_name}}
+      td {{val.author}}
+      td {{val.publisher}}
+      td {{val.category}}
+      td {{val.isbn}}
+      td {{val.num}}
+      td {{val.checkout}}
+      td(bgcolor="{{val.color}}", style="color:{{val.color}}") {{val.color}}

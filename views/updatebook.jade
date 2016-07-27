@@ -1,0 +1,34 @@
+
+extends layout
+
+block content
+  style.
+
+  h3= title
+  form#form_edit_book(name="editbook", method="post", action="/edit")
+    span ISBN
+    span &nbsp;
+    input#input_isbn13(type="text", placeholder="isbn", name="isbn13", value="#{s_isbn13}")
+    br
+    br
+    span Book Name
+    span &nbsp;
+    input#input_name(type="text", required=true,placeholder="book name", name="book_name", value="#{s_book}")
+    br
+    br
+    span Author
+    span &nbsp;
+    input#input_author(type="text", required=true,placeholder="author", name="author", value="#{s_author}")
+    br
+    br
+    span Book Number
+    span &nbsp;
+    input#input_publisher(type="text", required=true, placeholder="Book number", name="indexno",value="#{s_index}")
+    br
+    br
+    span Category
+    span &nbsp;
+    input#input_category(type="text", required=true,placeholder="category", name="category", value="#{s_category}")
+    br
+    br
+    button.btn.btn-blue#update_book(type="submit") Update
