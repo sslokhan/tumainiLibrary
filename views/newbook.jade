@@ -1,6 +1,17 @@
-
 extends layout
+
 block content
+  
+  style.
+    .btn-orange{background-color:#ff9900;border-color:#000}
+    .btn-gray{background-color:#787878;border-color:#000}
+    .btn-purple{background-color:#CE73FF;border-color:#000}
+    .btn-green{background-color:#56E130;border-color:#000}
+    .btn-black{background-color:#fff; border-color:#000}
+    .btn-blue{background-color:#0066ff; border-color:#000}
+    .btn-pink{background-color:#ff66cc; border-color:#000}
+    .btn-red{background-color:#cc0000; border-color:#000}
+
 
   h3= title
   form#form_search_book(name="search", method="post", action="/searchbook")
@@ -22,9 +33,9 @@ block content
     input#input_author(type="text", required=true, placeholder="author", name="author")
     br
     br
-    span Publisher
+    span Book Number
     span &nbsp;
-    input#input_publisher(type="publisher", required=true, placeholder="publisher", name="publisher")
+    input#input_publisher(type="text", required=true,placeholder="Book number", name="indexno")
     br
     br
     span Category
@@ -32,8 +43,15 @@ block content
     input#input_category(type="text", required=true, placeholder="category", name="category")
     br
     br
-    button#submit_book(type="submit") submit
+    button.btn.btn-gray#submit_book(type="button", name="submit_book",value="Gray", onclick="document.getElementById('gray-dropdown').style.display = 'block';") Select
+    br
+    br
+    #gray-dropdown(style="display:none")
+        button.btn.btn-blue#submit_book(type="submit", name="submit_book",value="blue") Select
+        button.btn.btn-red#submit_book(type="submit", name="submit_book",value="red") Select  
+        button.btn.btn-pink#submit_book(type="submit", name="submit_book",value="pink") Select    
+        button.btn.btn-purple#submit_book(type="submit",name="submit_book", value="purple") Select
+        button.btn.btn-black#submit_book(type="submit",name="submit_book", value="white") Select
+    br
 
-
-            
     

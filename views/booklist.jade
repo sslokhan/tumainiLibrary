@@ -22,19 +22,35 @@ block content
     table#books
       thead
         tr.head
+          th Book Number
           th Book Name
           th Book Author
-          th Book Publisher
+          //th Book Publisher
           th Book Category
-          th ISBN
+          //th ISBN
           th # in library
           th # checked-out
+          th Color Coding-1
+          th Color Coding-2
+
       tbody
         tr(ng-repeat="val in book.result | filter:searchString")
+          td {{val.indexno}}
           td {{val.book_name}}
           td {{val.author}}
-          td {{val.publisher}}
+          //td {{val.publisher}}
           td {{val.category}}
-          td {{val.isbn}}
+          //td {{val.isbn}}
           td {{val.num}}
           td {{val.checkout}}
+          td(bgcolor="{{val.color}}", style="color:{{val.color}}") {{val.color}}
+          td(bgcolor="{{val.color2}}", style="color:{{val.color2}}") {{val.color2}}
+          td
+            form#update(method="post",action='/updatebook')
+              input#update_bookname(type="hidden", name="book",value="{{val.book_name}}")
+              input#update_indexno(type="hidden", name="indexno",value="{{val.indexno}}")
+              input#update_author(type="hidden", name="author",value="{{val.author}}")
+              input#update_publisher(type="hidden", name="publisher",value="{{val.publisher}}")
+              input#update_category(type="hidden", name="category",value="{{val.category}}")
+              input#update_isbn(type="hidden", name="isbn",value="{{val.isbn}}")
+              button.btn.btn-gray#update_book(type="submit") edit

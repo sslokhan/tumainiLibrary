@@ -3,10 +3,12 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 var request = require("request-promise");
+var gray_count=0;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Tumaini Senior Secondary School Library System' });
+  res.render('index', { title: 'Tumaini Junior School Library System-- Test Version' });
 });
 
 router.get('/thelist', function(req, res){
@@ -58,6 +60,7 @@ var s_author_name="";
 var s_isbn13_id="";
 var s_publisher_name="";
 var s_category_id="";
+var s_indexno=0;
 var error="";
 
 router.post('/searchbook', function(req, res, next){
@@ -113,6 +116,79 @@ router.get('/newbook2', function(req, res){
     res.render('newbook2', {title: 'Add New Book',s_book: s_book_name, s_author: s_author_name, s_isbn13: s_isbn13_id ,s_publisher: s_publisher_name , s_category: s_category_id});
     });
 
+router.post('/updatebook', function(req, res){
+
+    console.log(req.body.indexno,req.body.author)
+    res.render('updatebook', {title: 'Update Book',s_index: req.body.indexno, s_book: req.body.book, s_author: req.body.author, s_isbn13: req.body.isbn ,s_publisher: req.body.publisher , s_category: req.body.category});
+    });
+
+
+// Need to update this instead of simply adding
+
+router.post('/edit', function(req, res){
+ 
+    // Get a Mongo client to work with the Mongo server
+    var MongoClient = mongodb.MongoClient;
+ 
+    // Define where the MongoDB server is
+    var url = 'mongodb://localhost:27017/library';
+ 
+    // Connect to the server
+    MongoClient.connect(url, function(err, db){
+      if (err) {
+        console.log('Unable to connect to the Server:', err);
+      } else {
+        console.log('Connected to Server');
+ 
+        // Get the documents collection
+        var collection = db.collection('books');
+        var book_index="";
+        collection.findOne({isbn: req.body.isbn13}, function(err, document) {
+          if(document==null)
+          {
+            // Get the book data passed from the form            
+            var book1 = {indexno: req.body.indexno,isbn: req.body.isbn13, book_name: req.body.book_name,
+            category: req.body.category, num: 1, checkout: 0, color: "gray", color2: "white"};
+     
+            // Insert the book data into the database
+            collection.insert([book1], function (err, result){
+              if (err) {
+                console.log(err);
+              } else {
+                // Redirect to the updated book list
+                res.redirect("thelist");
+              }
+              // Close the database
+              db.close();
+            });
+          }
+          else 
+          {
+            console.log("HIIIIII");
+            collection.update({ isbn: req.body.isbn13 }, 
+            {$set:  
+              {
+              indexno: req.body.indexno,
+              book_name: req.body.book_name,
+              category: req.body.category
+              }
+            });
+            res.redirect("thelist");
+            db.close();
+          }
+        });
+ 
+      }
+    });
+ 
+  });
+
+
+
+// CODE ~~~~ inc
+
+
+
 router.post('/addbook', function(req, res){
  
     // Get a Mongo client to work with the Mongo server
@@ -130,13 +206,13 @@ router.post('/addbook', function(req, res){
  
         // Get the documents collection
         var collection = db.collection('books');
-
+        var book_index="";
         collection.findOne({isbn: req.body.isbn13}, function(err, document) {
           if(document==null)
           {
-            // Get the book data passed from the form
-            var book1 = {isbn: req.body.isbn13, book_name: req.body.book_name, author: req.body.author,
-              publisher: req.body.publisher, category: req.body.category, num: 1, checkout: 0};
+            // Get the book data passed from the form            
+            var book1 = {indexno: req.body.indexno,isbn: req.body.isbn13, book_name: req.body.book_name, author: req.body.author,
+              publisher: req.body.publisher, category: req.body.category, num: 1, checkout: 0, color: "gray", color2: req.body.submit_book};
      
             // Insert the book data into the database
             collection.insert([book1], function (err, result){
@@ -165,6 +241,10 @@ router.post('/addbook', function(req, res){
 
 router.get('/removebook', function(req, res){
     res.render('removebook', {title: 'Remove Book'});
+});
+
+router.get('/showcheckout', function(req, res){
+    res.render('showcheckout', {title: 'Checked Out Books'});
 });
 
 router.get('/checkinout', function(req, res){

@@ -2,16 +2,27 @@
 extends layout
 
 block content
+  style.
+    .btn-orange{background-color:#ff9900;border-color:#000}
+    .btn-gray{background-color:#787878;border-color:#000}
+    .btn-purple{background-color:#CE73FF;border-color:#000}
+    .btn-green{background-color:#56E130;border-color:#000}
+    .btn-black{background-color:#fff; border-color:#000}
+    .btn-blue{background-color:#0066ff; border-color:#000}
+    .btn-pink{background-color:#ff66cc; border-color:#000}
+    .btn-red{background-color:#cc0000; border-color:#000}
+
+
   h3= title
   form#form_search_book(name="search", method="post", action="/searchbook")
     span ISBN
     span &nbsp;
-    input#input_isbn(type="text", placeholder="isbn", name="isbn", value="#{s_isbn13}")
+    input#input_isbn(type="text", placeholder="isbn", name="isbn", value="#{s_isbn13}", onchange="document.getElementById('input_isbn13').value=document.getElementById('input_isbn').value;")
     button#search_book(type="search") search
     br
     br
   form#form_add_book(name="addbook", method="post", action="/addbook")
-    input#input_isbn13(type="hidden", name="isbn13", value="#{s_isbn13}")
+    input#input_isbn13(type="hidden", name="isbn13")
     span Book Name
     span &nbsp;
     input#input_name(type="text", required=true,placeholder="book name", name="book_name", value="#{s_book}")
@@ -22,9 +33,9 @@ block content
     input#input_author(type="text", required=true,placeholder="author", name="author", value="#{s_author}")
     br
     br
-    span Publisher
+    span Book Number
     span &nbsp;
-    input#input_publisher(type="publisher", required=true,placeholder="publisher", name="publisher", value="#{s_publisher}")
+    input#input_publisher(type="text", required=true,placeholder="Book number", name="indexno")
     br
     br
     span Category
@@ -32,4 +43,13 @@ block content
     input#input_category(type="text", required=true,placeholder="category", name="category", value="#{s_category}")
     br
     br
-    button#submit_book(type="submit") submit
+    button.btn.btn-gray#submit_book(type="button", name="submit_book",value="Gray", onclick="document.getElementById('gray-dropdown').style.display = 'block';") Select
+    br
+    br
+    #gray-dropdown(style="display:none")
+        button.btn.btn-blue#submit_book(type="submit", name="submit_book",value="blue") Select
+        button.btn.btn-red#submit_book(type="submit", name="submit_book",value="red") Select  
+        button.btn.btn-pink#submit_book(type="submit", name="submit_book",value="pink") Select    
+        button.btn.btn-purple#submit_book(type="submit",name="submit_book", value="purple") Select
+        button.btn.btn-black#submit_book(type="submit",name="submit_book", value="white") Select
+    br
